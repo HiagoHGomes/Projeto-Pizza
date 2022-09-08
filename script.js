@@ -55,4 +55,13 @@ function closeModal() {
 
 cs('.pizzaInfo--cancelButton', '.pizzaInfo--cancelMobileButton').forEach((item)=>{
     item.addEventListener('click', closeModal);
-})
+});
+
+//Fecha o modal clicando fora dele.
+const withOnOutside = (fn) => (event) => {
+    if (event.target === event.currentTarget) {
+        fn(event);
+    }
+};
+let modal = c(".pizzaWindowArea");
+modal.addEventListener("click", withOnOutside(() => closeModal()));
