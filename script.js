@@ -108,12 +108,14 @@ c('.pizzaInfo--addButton').addEventListener('click',()=>{
 
     //Quantidade:
     console.log(modalQt)
+
+    cart.push({
+        id: pizzaJson[modalKey].id,
+        size: size,
+        qt: modalQt,
+    })
 })
 
 
-cart.push({
-    id: pizzaJson[modalKey].id,
-    size: size,
-    qt: modalQt,
-})
+
 
