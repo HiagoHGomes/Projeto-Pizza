@@ -109,11 +109,22 @@ c('.pizzaInfo--addButton').addEventListener('click',()=>{
     //Quantidade:
     console.log(modalQt)
 
-    cart.push({
-        id: pizzaJson[modalKey].id,
-        size: size,
-        qt: modalQt,
-    })
+    let identifier = pizzaJson[modalKey].id + "@" + size;
+    let key = cart.findIndex((item)=>{
+        return item.identifier == identifier;
+    });
+    if (key>-1) {
+        cart[key].qt += modalQt;
+    }else {
+        cart.push({
+            identifier,
+            id: pizzaJson[modalKey].id,
+            size: size,
+            qt: modalQt,
+        });
+    }
+
+    closeModal();
 })
 
 
