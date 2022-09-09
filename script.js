@@ -1,9 +1,6 @@
 let modalQt = 1;
 let modalKey = 0;
-pizzaPreco = 0;
-let cart = [
-
-];
+let cart = [];
 const c = (el)=> {
     return document.querySelector(el);
 }
@@ -25,7 +22,6 @@ pizzaJson.map((item, index)=>{
         let key = e.target.closest('.pizza-item').getAttribute('data-key');//pegar a chave que foi clicada
         modalQt = 1
         modalKey = key;
-        pizzaPreco = key;
 
 
 
@@ -120,3 +116,4 @@ cart.push({
     size: size,
     qt: modalQt,
 })
+
