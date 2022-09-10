@@ -123,9 +123,25 @@ c('.pizzaInfo--addButton').addEventListener('click',()=>{
             qt: modalQt,
         });
     }
-
+    updateCart();
     closeModal();
 })
+
+
+//Carrinho de compras:
+
+function updateCart() {
+    if(cart.length > 0) {
+        c("aside").classList.add('show');
+        for (let i in cart) {
+            let pizzaItem = pizzaJson.find((item)=>{
+                return item.id = cart [i].id
+            })
+        }
+    } else {
+        c("aside").aclassList.remove();
+    }
+};
 
 
 
