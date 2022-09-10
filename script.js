@@ -57,7 +57,7 @@ function closeModal() {
     setTimeout(()=>{
         c('.pizzaWindowArea').style.display = 'none';
     },500);
-    modalQt = 1;
+    // modalQt = 1;
 }
 
 cs('.pizzaInfo--cancelButton', '.pizzaInfo--cancelMobileButton').forEach((item)=>{
@@ -133,10 +133,35 @@ c('.pizzaInfo--addButton').addEventListener('click',()=>{
 function updateCart() {
     if(cart.length > 0) {
         c("aside").classList.add('show');
+        c('.cart').innerHTML = "";
         for (let i in cart) {
             let pizzaItem = pizzaJson.find((item)=>{
-                return item.id = cart [i].id
+                return item.id == cart [i].id
             })
+        
+        let cartItem = c('.models .cart--item').cloneNode(true); //clonar itens.
+        let pizzaSize = pizzaItem.sizes[cart[i].size]
+
+        switch(pizzaSize) {
+            case "320g":
+                pizzaSize = "P";
+                break;
+            case "530g":
+                pizzaSize = "M"
+                break;
+            case "860g":
+                pizzaSize = "G"
+                break;
+
+        }
+
+        let pizzaName = `${pizzaItem.name} (${pizzaSize})`;
+
+        cartItem.querySelector('img').src = pizzaItem.img;
+        cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
+        cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
+
+        c('.cart').append(cartItem);
         }
     } else {
         c("aside").aclassList.remove();
