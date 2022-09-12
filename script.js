@@ -84,7 +84,7 @@ c(".pizzaInfo--qtmenos").addEventListener('click', ()=>{
 c(".pizzaInfo--qtmais").addEventListener('click', ()=>{
     modalQt++;
     c('.pizzaInfo--qt').innerHTML = modalQt;
-    // c('.pizzaInfo--actualPrice').innerHTML = modalQt;
+    
 });
 
 //Tamanho da pizza: 
@@ -134,10 +134,14 @@ function updateCart() {
     if(cart.length > 0) {
         c("aside").classList.add('show');
         c('.cart').innerHTML = "";
+
+        let subtotal = 0;
+        let desconto = 0;
+        let total = 0;
+
         for (let i in cart) {
-            let pizzaItem = pizzaJson.find((item)=>{
-                return item.id == cart [i].id
-            })
+            let pizzaItem = pizzaJson.find((item) => item.id == cart[i].id);
+            subtotal += pizzaItem.price * cart[i].qt;
         
         let cartItem = c('.models .cart--item').cloneNode(true); //clonar itens.
         let pizzaSize = pizzaItem.sizes[cart[i].size]
@@ -161,10 +165,32 @@ function updateCart() {
         cartItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
         cartItem.querySelector('.cart--item--qt').innerHTML = cart[i].qt;
 
+        //Adicionar ações dos botões de "+" e "-" do carrinho:
+        cartItem.querySelector('.cart--item-qtmenos').addEventListener("click", ()=>{
+            if(cart[i].qt > 1) {
+                cart[i].qt--;
+            }else{
+                cart.splice(i, 1);
+            }
+            updateCart(); 
+        });
+        cartItem.querySelector('.cart--item-qtmais').addEventListener("click", ()=>{
+            cart[i].qt++;
+            updateCart(); 
+        })
+
+
         c('.cart').append(cartItem);
         }
+
+        desconto = subtotal * 0.1;
+        total = subtotal - desconto;
+        c(".subtotal span:last-child").innerHTML = `R$ ${subtotal.toFixed(2)}`;
+        c(".desconto span:last-child").innerHTML = `R$ ${desconto.toFixed(2)}`;
+        c(".total span:last-child").innerHTML = `R$ ${total.toFixed(2)}`;
+
     } else {
-        c("aside").aclassList.remove();
+        c("aside").classList.remove("show");
     }
 };
 
